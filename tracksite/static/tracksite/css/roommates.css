@@ -1,0 +1,28 @@
+.roommate-list img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    float: left;
+}
+
+.roomate-name {
+    float: inherit;
+    padding-top: 30px;
+    padding-left:100px;
+    color: #2e6da4;
+    font-weight: bold;
+}
+
+.add-roommate-btn {
+    margin-top: 15px;
+}
+
+.remove-btn {
+    float: right;
+    margin-top: 28px;
+    margin-left: 5px;
+
+}
+.roommate-panel {
+    height: 110px;
+}

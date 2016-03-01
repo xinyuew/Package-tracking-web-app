@@ -1,0 +1,23 @@
+img {
+    width: 90%;
+    height: auto;
+
+}
+
+label {
+    color: white;
+}
+
+.form-center {
+    margin: auto;
+    width: 500px;
+    height: 400px;
+}
+
+.bio {
+    max-height: 80px;
+}
+
+.btns {
+    text-align: center;
+}

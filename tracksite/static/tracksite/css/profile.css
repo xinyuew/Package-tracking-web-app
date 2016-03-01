@@ -1,0 +1,71 @@
+.track-input {
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.panel.panel-default {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.img-circle.img-responsive.avatar {
+    width: 120px;
+    height: 120px;
+    float: left;
+    z-index: 1;
+    /*position: absolute;*/
+}
+
+p.text-right.name {
+    font-size: 15px;
+    margin-top: 45px;
+    margin-left: 20px;
+    float: left;
+}
+
+.avatar.background.img-responsive {
+    z-index: 0;
+    width: 200px;
+    height: 100px;;
+    position: absolute;
+}
+
+body {
+    background-color: #E9EAED;
+}
+
+.user-info.panel-body {
+    height: 500px;
+}
+
+button #trackbtn {
+    text-align: right;
+}
+
+.latest-update-time {
+    margin: auto;
+}
+
+.deliverd {
+    color: #4cae4c;
+}
+
+.panel-heading {
+    font: bold;
+    font-weight: bold;
+}
+
+.package-owner {
+    float: right;
+    color: #337ab7;
+}
+.delete-package {
+    margin-left: 10px;
+}
+
+hr {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+

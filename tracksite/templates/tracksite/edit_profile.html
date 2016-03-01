@@ -1,0 +1,23 @@
+{% extends 'tracksite/base.html' %}
+
+{% block title %}<title>youTrack - Edit Profile</title>{% endblock %}
+
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href={% static 'tracksite/css/edit_profile.css' %}>
+{% endblock %}
+
+{% block content %}
+    <div class="form-top">
+        <h1 style="text-align:center;">Edit Profile</h1>
+        <hr style="max-width: 50%;margin-bottom: 0px;">
+    </div>
+    <div class="form-center">
+        <form enctype="multipart/form-data" action="{% url 'edit_profile' %}" method="post">
+            {{ form }}
+            {% csrf_token %}
+            <p class="btns"><input type="submit" class="btn btn-success btn-md" value="Save Profile">
+                <a class="btn btn-success btn-md" href={% url 'welcome' %}>Cancel</a></p>
+        </form>
+    </div>
+{% endblock %}

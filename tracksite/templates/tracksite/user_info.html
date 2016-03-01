@@ -1,0 +1,43 @@
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href={% static 'tracksite/css/user_info.css' %}>
+{% endblock %}
+
+<div class="panel-group">
+    <div class="user-info">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="avatar-background"></div>
+                <div class="avatar">
+                    <img src="/tracksite/photo/{{ user.id }}" class="img-circle img-responsive">
+                </div>
+                <div class="username">
+                    <p>{{ user.first_name }} {{ user.last_name }}</p>
+                </div>
+
+                <div class="location">
+                    {% if profile.location %}
+                        <a href="#" id="prof-location" data-toggle="tooltip"
+                           title="Find shipment service provider near you!">{{ profile.location }}</a>
+                    {% else %}
+                        <a href="/tracksite/edit_profile">Add you location here!</a>
+                    {% endif %}
+                </div>
+
+                <ul class="package-roommate">
+                    <li class="package-li col-sm-6">
+                        <div data-toggle="tooltip"
+                        title="Your package number" id="package-number">Packages</div>
+                        <h5 class="package-num" id="user-info-package-count">{{ profile.tracks.count }}</h5>
+                    </li>
+                    <li class="roommate-li col-sm-6">
+                        <a href="/tracksite/roommate" class="text-right" data-toggle="tooltip"
+                           title="Manage your roommates" id="manage-roommates">Roomates</a>
+                        <h5 class="roommate-num" id="roomate-count-id">{{ profile.roommates.count }}</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

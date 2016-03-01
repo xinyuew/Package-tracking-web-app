@@ -1,0 +1,113 @@
+{% extends 'tracksite/base.html' %}
+
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href={% static 'tracksite/css/profile.css' %}>
+{% endblock %}
+
+{% block content %}
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title">Warning</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Sorry, invalid or unsupported tracking number!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3">
+        {% include 'tracksite/user_info.html' %}
+    </div>
+    <div class="col-sm-7">
+        <div class="panel-group">
+            <div class="track-input">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="/tracksite/query" id="query_form" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" style="height:40px;" name="track_num"
+                                       placeholder="Enter your tracking number here to start track!">
+                            </div>
+                            {% csrf_token %}
+                            <div style="text-align: right">
+                                <button type="submit" class="myButton" style="margin-left: auto" id="addbtn">&nbsp;Add&nbsp;</button>
+                                <button type="submit" class="myButton" style="margin-left: auto" id="trackbtn">Track
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% for item in track_details %}
+                <div class="panel panel-default" id="track-panel-{{ item.track_id }}"
+                     panel-owner-id="{{ item.owner.id }}">
+                    <div class="panel-heading">
+                        {{ item.date }}
+                        <div class="package-owner">
+                            {{ item.owner.first_name }} {{ item.owner.last_name }}'s package
+                            {% if item.owner == user %}
+                                <button class="glyphicon glyphicon-remove-sign delete-package"
+                                        track-id="{{ item.track_id }}" data-toggle="tooltip"
+                                        title="Click here to delete this package from your timeline"></button>
+                                &nbsp;
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-2 latest-update-time">
+                            {% if item.time %}
+                                {{ item.time }}
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-10">
+                            {% if item.est_date and "delivered" not in item.message|lower %}
+                                <p class="deliverd">Estimated Delivery Time: {{ item.est_date }}</p>
+                                <hr>
+                            {% endif %}
+                            <p>
+                                {% if item.message %}
+                                    {{ item.message }}.<br>
+                                {% else %}
+                                    No tracking information avaliable!<br>
+                                {% endif %}
+                                {% if item.tracking_location.city %}
+                                    {{ item.tracking_location.city }}, {{ item.tracking_location.state }},
+                                    {{ item.tracking_location.country }}<br>
+                                {% endif %}
+                            </p>
+                            <hr style="margin-top: 0px;margin-bottom: 10px;">
+                            <div class="col-sm-4" style="padding-left: 0px"><span
+                                    class="glyphicon glyphicon-globe"></span>&nbsp; Carrier: {{ item.carrier }}
+                            </div>
+                            <div class="col-sm-8" style="text-align: right"><span
+                                    class="glyphicon glyphicon-info-sign"></span>&nbsp;Tracking #<a
+                                    href="/tracksite/query/{{ item.track_num }}">{{ item.track_num }}</a></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    <div class="panel panel-info" id="history-panel">
+        <div class="panel-heading" id="history-heading">Search History</div>
+        <div class="panel-body">
+            <div id="history-list">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.min.js"></script>
+    {% load static %}
+    <script src={% static 'tracksite/js/utility.js' %}></script>
+{% endblock %}

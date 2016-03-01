@@ -1,0 +1,59 @@
+{% extends 'tracksite/base.html' %}
+
+{% block title %}<title>youTrack - Register</title>{% endblock %}
+
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tracksite/css/register.css' %}"/>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6 welcome">
+        <h1>Welcome to youTrack</h1>
+
+        <div class="icon-text">
+            <img class="img" src="http://hpux.connect.org.uk/images/packages-icon.png" alt=""
+                 style="vertical-align: middle"/>
+            <span class="text-title">Track your package</span>
+            <span class="text-content">with tracking numbers</span>
+        </div>
+
+        <div class="icon-text">
+            <img class="img" src="http://caseybarnes.org/wp-content/uploads/house.png" alt=""
+                 style="vertical-align: middle"/>
+            <span class="text-title">Help your roommates</span>
+            <span class="text-content">to track their package</span>
+        </div>
+
+        <div class="icon-text">
+            <img class="img"
+                 src="https://scontent-iad3-1.xx.fbcdn.net/hphotos-xtp1/t39.2365-6/851558_160351450817973_1678868765_n.png"
+                 alt="" style="vertical-align: middle"/>
+            <span class="text-title">Find more</span>
+            <span class="text-content">by join us today</span>
+        </div>
+
+    </div>
+    <div class="col-sm-4 form-register">
+        <div class="form-top">
+            <h1>Sign up</h1>
+            Have an account? <a href="/tracksite/login" style="color:darkblue;">Click here!</a>
+        </div>
+        <div class="form-center">
+            <form role="form" action="{% url 'register' %}" method="post" class="registration-form">
+                <div class="form-group">
+                    {% for field in form.visible_fields %}
+                        {{ field }}
+                        <p class="error-class">{{ field.errors }}</p>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success btn-block">Sign Up</button>
+                    {% csrf_token %}
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-1"></div>
+{% endblock %}

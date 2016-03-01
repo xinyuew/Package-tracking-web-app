@@ -1,0 +1,16 @@
+body {
+    background-color: #E9EAED;
+}
+
+th {
+    text-align: center;
+}
+
+.result-panel {
+    text-align: center;
+}
+
+.location-map {
+    width: 100%;
+    height: 400px;
+}

@@ -1,0 +1,93 @@
+
+.form-top {
+	overflow: hidden;
+	padding: 0 25px 15px 25px;
+	-moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
+	text-align: left;
+}
+
+.form-top-left {
+	float: left;
+	width: 35%;
+	padding-top: 25px;
+}
+
+.form-top-left h3 { 
+	margin-top: 0;
+ 	/*color:#0099CC; */
+ }
+
+.form-top-right {
+	float: right;
+	width: 65%;
+	padding-top: 25px;
+	font-size: 15px;
+	text-align: right;
+}
+.form-top-right a {
+	/*color:#0099CC;*/
+}
+
+
+.form-bottom {
+	padding: 25px 25px 30px 25px;
+	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
+	text-align: left;
+}
+
+.form-bottom form textarea {
+	height: 100px;
+}
+
+.form-bottom form .input-error {
+	border-color: #19b9e7;
+}
+
+.col-sm-8.col-sm-offset-2.text h1{
+	font-size: 80px;
+	color: #4072B4;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.form-register {
+	max-width: 600px;
+	padding: 15px; 
+	margin: 0px auto;
+}
+
+body {
+	background-color: #E9EAED;
+}
+.error-class p {
+	color: red;
+}
+
+.col-sm-6.welcome h1{
+	margin-top: 100px;
+	margin-bottom: 50px;
+}
+.text-title {
+	font-size: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+.text-content{
+	color: #606060;
+}
+
+.icon-text {
+	margin-bottom: 30px;
+}
+
+.icon-text img {
+	width: 50px;
+	height: 50px;
+}
+.form-top p {
+	font-size: 18px;
+}
+.form-group li {
+	color: red;
+}

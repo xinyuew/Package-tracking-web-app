@@ -1,0 +1,92 @@
+{% extends 'tracksite/base.html' %}
+
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href={% static 'tracksite/css/roommates.css' %}>
+    <link rel="stylesheet" href={% static 'tracksite/css/profile.css' %}>
+{% endblock %}
+
+{% block content %}
+    <div class="modal fade" id="remove-roommate-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title">Message</h5>
+                </div>
+                <div class="modal-body">
+                    <p>You've removed your roommate successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3">
+        {% include 'tracksite/user_info.html' %}
+    </div>
+    <div class="col-sm-7">
+        {% if success_send_email_messages %}
+            <div class="alert alert-success fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ success_send_email_messages }}
+            </div>
+        {% endif %}
+
+        {% if errors %}
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+                <p>{{ errors }}</p>
+            </div>
+        {% endif %}
+
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Your roommate's user name
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="{% url 'add_roommate' %}">
+                        {{ form }}
+                        <input type="submit" value="Add roommate" class="myButton add-roommate-btn"
+                               style="float: right">
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+            <div class="roommate-list">
+                {% for roommate in roommates %}
+                    <div class="panel panel-primary roommate-panel" id="roommate-panel{{ roommate.id }}">
+                        <div class="panel-body">
+                            <img src="/tracksite/photo/{{ roommate.id }}" class="img-circle img-responsive">
+                            <button class="remove-btn btn-primary btn btn-sm" user-id="{{ roommate.id }}">Remove
+                            </button>
+                            <a href="mailto:{{ roommate.email }}" class="remove-btn btn-success btn btn-sm">Send
+                                notification</a>
+
+                            <p class="roomate-name">{{ roommate.first_name }} {{ roommate.last_name }}</p>
+
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if not roommates %}
+                    <div class="well">No roommate added.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info" id="history-panel">
+        <div class="panel-heading" id="history-heading">Search History</div>
+        <div class="panel-body">
+            <div id="history-list">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.min.js"></script>
+    {% load static %}
+    <script src={% static 'tracksite/js/utility.js' %}></script>
+{% endblock %}

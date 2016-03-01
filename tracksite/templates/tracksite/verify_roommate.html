@@ -1,0 +1,77 @@
+{% extends 'tracksite/base.html' %}
+
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href={% static 'tracksite/css/verify_roommate.css' %} xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-sm-2"></div>
+
+    <div class="col-sm-8 verification-part">
+        <div class="modal fade" id="roommate-modal-agree">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true" id="close-add-roommate-confirm">&times;</span></button>
+                        <h5 class="modal-title">Agree!</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>You've agreed to be added as roommate!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="roommate-modal-reject">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h5 class="modal-title">Reject!</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>You've rejected to be added as roommate!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Comfirmation
+                </div>
+                <div class="panel-body">
+                    <p>
+                        If {{ request_user_first }} {{ request_user_last }} is your roommate, click Agree.
+
+                    </p>
+
+                    <p>Otherwise, click Reject.</p>
+                <span>
+                <button class="btn btn-success" id="aggree-add-roommate">Agree</button>
+                <button class="btn btn-danger" id="reject-add-roommate">Reject</button>
+                </span>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <img src="{% static 'tracksite/images/delconfirm.jpg' %}">
+        </div>
+        <input type="hidden" value="{{ request_user.username }}" id="request_username">
+        <input type="hidden" value="{{ target_user.username }}" id="target_username">
+    </div>
+    <div class="col-sm-2"></div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.min.js"></script>
+    {% load static %}
+    <script src={% static 'tracksite/js/utility.js' %}></script>
+{% endblock %}

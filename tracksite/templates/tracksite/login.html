@@ -1,0 +1,44 @@
+{% extends 'tracksite/base.html' %}
+
+{% block title %}<title>youTrack - Login</title>{% endblock %}
+
+{% block stylesheets %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href={% static 'tracksite/css/login.css' %}>
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        {% load static %}
+        <img class="img-responsive" alt="logo2" src="{% static 'tracksite/logo/logo2.png' %}"/>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+        <form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+            <div class="form-top">
+                <h1>Sign in</h1>
+                Don't have an account?&nbsp;<a href="/tracksite/register" style="color:darkblue;">Register</a>
+            </div>
+            {% if form.errors %}
+                <p style="color: red">Invalid username or password</p>
+            {% endif %}
+            <div class="form-bottom">
+                <div class="form-group">
+                    <label for="inputUserName" class="sr-only">Username</label>
+                    <input type="text" id="inputUserName" name="username" class="form-control login-input"
+                           placeholder="User Name"
+                           required autofocus>
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" name="password" class="form-control  login-input"
+                           placeholder="Password"
+                           required>
+                </div>
+                <button class="btn btn-success btn-block" type="submit" style="text-align: center;">Login</button>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}"/>
+            {% csrf_token %}
+        </form>
+    </div>
+    <div class="col-sm-1"></div>
+{% endblock %}

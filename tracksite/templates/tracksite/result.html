@@ -1,0 +1,118 @@
+{% extends 'tracksite/base.html' %}
+
+{% block title %}<title>youTrack - Result of #{{ tnum }}</title>{% endblock %}
+
+{% block stylesheets %}
+    {% if user.is_authenticated %}
+        {% load staticfiles %}
+        <link rel="stylesheet" href={% static 'tracksite/css/profile.css' %}>
+    {% endif %}
+
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tracksite/css/result.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <input id="tnum" type="hidden" value={{ tnum }}>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title">Warning</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Sorry, invalid or unsupported tracking number!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% if user.is_authenticated %}
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+             {% include 'tracksite/user_info.html' %}
+        </div>
+        <div class="col-sm-8">
+        <div class="col-md-10">
+    {% else %}
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+    {% endif %}
+<form action="/tracksite/query" id="query_form" method="post">
+    {% csrf_token %}
+    <div class="form-group input-group">
+        <input type="text" class="form-control" name="track_num"
+               placeholder="Enter your tracking number here to start track!">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Track</button>
+                </span>
+    </div>
+</form>
+<div class="panel panel-default result-panel">
+    {% if user.is_authenticated %}
+        <div class="panel-heading">
+            Tracking Number: {{ tnum }}&nbsp;&nbsp;Carrier: {{ carrier }}&nbsp;&nbsp;
+            <button type="button" id="add-it" class="btn btn-default btn-sm"
+                    data-toggle="tooltip" title="Click icon to add it to your timeline!">
+                <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    {% else %}
+        <div class="panel-heading">Tracking Number: {{ tnum }}&nbsp;&nbsp;Carrier: {{ carrier }}</div>
+    {% endif %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in infos reversed %}
+            <tr>
+                <td>{{ item.datetime }}</td>
+                <td>{{ item.message }}</td>
+                {% if item.tracking_location.city == 'None' %}
+                    <td>United States</td>
+                {% elif item.tracking_location.city != 'null' %}
+                    <td>{{ item.tracking_location.city }}, {{ item.tracking_location.state }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="gmap" class="location-map"></div>
+    </div>
+</div>
+</div>
+<div class="col-md-2"></div>
+{% if user.is_authenticated %}
+    </div>
+{% endif %}
+    <div class="panel panel-info" id="history-panel">
+        <div class="panel-heading" id="history-heading">Search History</div>
+        <div class="panel-body">
+            <div id="history-list">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.7"></script>
+    {% load static %}
+    <script src={% static 'tracksite/js/maplace-0.1.3.js' %}></script>
+    {% load static %}
+    <script src={% static 'tracksite/js/mymap.js' %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.min.js"></script>
+    {% load static %}
+    <script src={% static 'tracksite/js/utility.js' %}></script>
+{% endblock %}
